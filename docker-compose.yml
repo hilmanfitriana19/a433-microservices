@@ -1,0 +1,26 @@
+# versioning
+version: '3.8'
+
+# define volumes
+volumes:
+  app-db:
+
+# define sevice
+services:
+  # define database
+  item-db:
+    image: mongo:3
+    restart: always     # restart if container fails
+    ports: 
+    - "27017:27017"     # map container port to host port
+    volumes:
+      - app-db:/data/db
+
+  # define app
+  item-app:
+    image: "hlmnftr19/item-app:v1"  # image from docker hub using uploaded image
+    restart: always     # restart if container fails
+    ports:              # map container port to host port
+      - "80:8080"
+    depends_on:         # start app if db is running
+      - item-db
