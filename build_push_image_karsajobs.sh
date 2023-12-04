@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# build docker image
+docker build -t karsajobs .
+
+# listing docker image
+docker images
+
+#push to docker hub
+echo $PASSWORD_DOCKER_HUB docker login --username hlmnftr19 --password-stdin
+docker tag karsajobs hlmnftr19/karsajobs
+docker push hlmnftr19/karsajobs
